@@ -1,0 +1,1 @@
+__d(function(g,r,i,a,m,e,d){"use strict";var t=(function(){if('undefined'!=typeof self)return self;if('undefined'!=typeof window)return window;if(void 0!==g)return g;throw new Error('unable to locate global object')})();m.exports=e=t.fetch,t.fetch&&(e.default=t.fetch.bind(t)),e.Headers=t.Headers,e.Request=t.Request,e.Response=t.Response},2705,[]);

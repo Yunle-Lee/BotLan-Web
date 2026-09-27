@@ -1,0 +1,1602 @@
+/* ==========================================================================
+   BOTLAN 官网交互 Mockup 样式表 (基于真实软件抠图 mockup.png)
+   ========================================================================== */
+
+/* 基础重置 */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f7f9fb;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC",
+               "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+  color: #111827;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ==========================================================================
+   1. 主封面容器：极简主义 Hero 舞台
+   ========================================================================== */
+.page-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 30px 20px 60px 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   1.0 封面左上角: Chanh Dai 风格 Mobius Loop Icon (莫比乌斯环无穷动效)
+   ========================================================================== */
+.cover-top-left {
+  position: absolute;
+  top: 36px;
+  left: clamp(24px, 4vw, 64px);
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobius-loop-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  color: #0f172a;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.mobius-loop-wrap:hover {
+  transform: scale(1.08);
+  opacity: 0.8;
+}
+
+.mobius-loop-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+
+/* ==========================================================================
+   1.1 封面左侧边栏: Chanh Dai 风格 LineNav 纵向标尺导航 (复刻 chanhdai.com/components/line-nav)
+   ========================================================================== */
+.cover-sidebar-left {
+  position: absolute;
+  left: clamp(24px, 4vw, 64px);
+  top: 52%;
+  transform: translateY(-50%);
+  z-index: 25;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 1180px) {
+  .cover-sidebar-left {
+    display: none; /* 屏幕宽度小于 1180px 时隐藏，避免遮挡中央 3D Mockup 视窗 */
+  }
+}
+
+.line-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px 0;
+  --line-nav-width: 24px;
+  user-select: none;
+}
+
+/* 中间双刻度线 (Chanh Dai 官方规范: 1px 细线，20% 不透明度) */
+.line-nav-tick {
+  display: block;
+  height: 1px;
+  width: var(--line-nav-width);
+  background-color: rgba(15, 23, 42, 0.18);
+  pointer-events: none;
+  transition: background-color 0.2s ease, width 0.2s ease;
+}
+
+/* 导航项 */
+.line-nav-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 20px;
+  text-decoration: none;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+/* 扩充交互感应热区 (对应 Chanh Dai 原版 after:size-full after:p-3.5) */
+.line-nav-item::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -8px;
+  transform: translateY(-50%);
+  width: calc(100% + 16px);
+  height: 32px;
+}
+
+/* 核心横向标尺标线 (Normal: 24px, Active/Hover: 40px) */
+.line-nav-bar {
+  display: block;
+  height: 1px;
+  width: var(--line-nav-width); /* 24px */
+  flex-shrink: 0;
+  background-color: rgba(15, 23, 42, 0.2);
+  transition: width 0.28s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease;
+}
+
+.line-nav-item:hover .line-nav-bar,
+.line-nav-item.active .line-nav-bar {
+  width: 40px;
+  background-color: #0f172a;
+}
+
+/* 导航项英文标题 */
+.line-nav-title {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 0.81rem; /* 13px */
+  font-weight: 450;
+  white-space: nowrap;
+  color: #64748b;
+  letter-spacing: -0.01em;
+  transition: color 0.2s ease, transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), font-weight 0.2s ease;
+  transform: translateX(0);
+}
+
+.line-nav-item:hover .line-nav-title {
+  color: #0f172a;
+  transform: translateX(2px);
+}
+
+.line-nav-item.active .line-nav-title {
+  color: #0f172a;
+  font-weight: 600;
+  transform: translateX(2px);
+}
+
+/* 顶部大标题：BOTLAN（文字下半部分渐变淡出） */
+.title-wrap {
+  width: 100%;
+  max-width: 820px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: -15px;
+  z-index: 5;
+  pointer-events: none;
+  user-select: none;
+}
+
+.botlan-title-img {
+  width: 100%;
+  max-width: 820px;
+  height: 160px;
+  aspect-ratio: 820 / 160;
+  object-fit: fill;
+  display: block;
+}
+
+/* ==========================================================================
+   2. 鼠标互动 3D Mockup 视差与热区舞台
+   ========================================================================== */
+.mockup-perspective-wrapper {
+  position: relative;
+  width: 820px;
+  max-width: 95vw;
+  margin: 0 auto;
+  perspective: 1400px;
+  perspective-origin: center center;
+  z-index: 10;
+}
+
+.mockup-card-3d {
+  position: relative;
+  width: 100%;
+  transform-style: preserve-3d;
+  will-change: transform;
+  transform: rotateX(0deg) rotateY(0deg) translateZ(0);
+  transition: transform 0.15s ease-out;
+  border-radius: 40px;
+  user-select: none;
+}
+
+/* 拟真动态玻璃高光反光层 (跟随鼠标移动) */
+.mockup-glare {
+  position: absolute;
+  inset: 0;
+  border-radius: 40px;
+  pointer-events: none;
+  z-index: 35;
+  mix-blend-mode: overlay;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0) 70%);
+}
+
+.mockup-card-3d:hover .mockup-glare {
+  opacity: 1;
+}
+
+/* 真实软件抠图底层 (1163x920 原始质感) */
+.mockup-base-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+  filter: drop-shadow(0 24px 60px rgba(15, 23, 42, 0.14));
+  transition: filter 0.25s ease;
+}
+
+.mockup-card-3d:hover .mockup-base-img {
+  filter: drop-shadow(0 30px 75px rgba(15, 23, 42, 0.18));
+}
+
+/* ==========================================================================
+   3. 交互热区覆盖层 (Hotspot Overlays)
+   基于 mockup.png (1163 x 920) 严格测算的百分比布局
+   ========================================================================== */
+
+/* A. 右上角 Orbit 环形滑轨交互区 */
+.hotspot-orbit {
+  position: absolute;
+  top: 4.5%;
+  left: 71.5%;
+  width: 24.5%;
+  height: 68%;
+  z-index: 25;
+  cursor: pointer;
+}
+
+.orbit-hit-tab {
+  position: absolute;
+  cursor: pointer;
+  border-radius: 26px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.orbit-hit-tab:hover {
+  background: rgba(96, 165, 250, 0.12);
+  box-shadow: 0 0 16px rgba(96, 165, 250, 0.35);
+}
+
+/* 顶部 Deeper 滑块热区 */
+.tab-deeper-hit {
+  top: 0%;
+  left: 0%;
+  width: 80%;
+  height: 18%;
+}
+
+.tab-deeper-hit.active .orbit-hit-ripple {
+  display: block;
+}
+
+/* 右侧 Agent 滑块热区 */
+.tab-agent-hit {
+  top: 48%;
+  left: 62%;
+  width: 38%;
+  height: 48%;
+}
+
+.tab-agent-hit.active .orbit-hit-ripple {
+  display: block;
+}
+
+.orbit-hit-ripple {
+  display: none;
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.4);
+  animation: ripplePulse 2s infinite ease-in-out;
+}
+
+@keyframes ripplePulse {
+  0%, 100% { opacity: 0.3; transform: scale(0.98); }
+  50% { opacity: 0.8; transform: scale(1.02); }
+}
+
+/* B. 右侧动作栏各按键点击跳转热区 */
+.hotspot-right-rail {
+  position: absolute;
+  left: 75.5%;
+  top: 24.5%;
+  width: 7.2%;
+  height: 50.5%;
+  display: flex;
+  flex-direction: column;
+  z-index: 25;
+}
+
+.hotspot-tool-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hotspot-tool-btn:hover {
+  background: rgba(96, 165, 250, 0.16);
+  transform: scale(1.12);
+}
+
+.hotspot-tool-btn.active {
+  background: rgba(20, 23, 26, 0.08);
+}
+
+.hotspot-tool-btn[data-action="chat"] { height: 16%; margin-bottom: 1%; }
+.hotspot-tool-btn[data-action="code"] { height: 16%; margin-bottom: 7%; }
+.hotspot-tool-btn[data-action="activity"] { height: 14%; margin-bottom: 1%; }
+.hotspot-tool-btn[data-action="ideas"] { height: 14%; margin-bottom: 1%; }
+.hotspot-tool-btn[data-action="goals"] { height: 14%; margin-bottom: 1%; }
+.hotspot-tool-btn[data-action="apps"] { height: 14%; }
+
+/* C. 左侧导航栏交互热区 */
+.hotspot-left-rail {
+  position: absolute;
+  left: 9.8%;
+  top: 23.5%;
+  width: 6.8%;
+  height: 46%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 25;
+}
+
+.hotspot-nav-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: all 0.2s;
+}
+
+.hotspot-nav-btn:hover {
+  background: rgba(96, 165, 250, 0.15);
+  transform: scale(1.1);
+}
+
+.btn-menu-hit { width: 36px; height: 16%; margin-bottom: 2%; }
+.hotspot-avatar-hit {
+  width: 40px;
+  height: 26%;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s;
+  margin-bottom: 3%;
+}
+.hotspot-avatar-hit:hover { transform: scale(1.15); }
+.btn-lang-hit { width: 36px; height: 16%; border-radius: 8px; margin-bottom: 2%; }
+.hit-lang-badge { display: none; }
+.btn-bell-hit { width: 36px; height: 16%; }
+
+/* D. 顶栏微幅拖动手柄与重置按键 */
+.hotspot-drag-handle {
+  position: absolute;
+  left: 42%;
+  top: 17.5%;
+  width: 17%;
+  height: 4.5%;
+  cursor: grab;
+  border-radius: 9999px;
+  z-index: 25;
+  transition: background 0.2s;
+}
+
+.hotspot-drag-handle:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.hotspot-drag-handle:active {
+  cursor: grabbing;
+}
+
+.hotspot-close-btn {
+  position: absolute;
+  left: 68.2%;
+  top: 18%;
+  width: 2.8%;
+  height: 3.8%;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  border-radius: 50%;
+  z-index: 25;
+  transition: transform 0.2s;
+}
+
+.hotspot-close-btn:hover {
+  transform: scale(1.25);
+  background: rgba(239, 68, 68, 0.15);
+}
+
+/* E. 底部输入栏真实打字交互层 */
+.hotspot-input-dock {
+  position: absolute;
+  left: 17.5%;
+  top: 79%;
+  width: 53.5%;
+  height: 9.2%;
+  display: flex;
+  align-items: center;
+  z-index: 25;
+  padding: 0 4px;
+}
+
+.dock-btn-plus {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 1.1rem;
+  color: transparent;
+  transition: all 0.2s;
+}
+
+.dock-btn-plus:hover {
+  background: rgba(0, 0, 0, 0.06);
+  color: #64748b;
+}
+
+.dock-input-field {
+  flex: 1;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 0.9rem;
+  color: #111827;
+  padding: 0 10px;
+}
+
+.dock-input-field::placeholder {
+  color: transparent;
+}
+
+.dock-input-field:focus::placeholder {
+  color: #94a3b8;
+}
+
+.dock-btn-send {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 1.1rem;
+  color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.dock-btn-send:hover {
+  background: rgba(59, 130, 246, 0.16);
+  color: #2563eb;
+}
+
+/* ==========================================================================
+   4. 子视图展示覆盖层 (从真实对话无缝跳转展开)
+   ========================================================================== */
+.subview-panel-overlay {
+  position: absolute;
+  left: 18%;
+  top: 24%;
+  width: 54%;
+  height: 53%;
+  background: #ffffff;
+  border-radius: 20px;
+  border: 2.2px solid #14171a;
+  box-shadow: 0 16px 45px rgba(15, 23, 42, 0.16);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 40;
+  animation: subviewPop 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes subviewPop {
+  from { opacity: 0; transform: translateY(8px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.subview-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: #f8fafc;
+  border-bottom: 1.5px solid #e2e8f0;
+}
+
+.subview-title-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.subview-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+
+.subview-badge {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.subview-badge.green {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.subview-badge.amber {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.subview-back-btn {
+  background: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 4px 12px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.subview-back-btn:hover {
+  background: #ef4444;
+  border-color: #ef4444;
+  color: #ffffff;
+}
+
+.subview-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px 16px;
+}
+
+.subview-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+}
+
+.subview-code-block {
+  background: #0f172a;
+  color: #e2e8f0;
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  overflow-x: auto;
+}
+
+.subview-item-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 0.84rem;
+}
+
+.subview-item-row:last-child {
+  border-bottom: none;
+}
+
+/* ==========================================================================
+   5. 模拟动态对话插入浮层
+   ========================================================================== */
+.mockup-dynamic-chat {
+  position: absolute;
+  left: 18%;
+  top: 24%;
+  width: 54%;
+  height: 53%;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(8px);
+  border-radius: 20px;
+  border: 2px solid #14171a;
+  box-shadow: 0 16px 45px rgba(15, 23, 42, 0.16);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 42;
+  padding: 16px;
+  animation: subviewPop 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dynamic-chat-scroll {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-bottom: 10px;
+}
+
+.dynamic-user-msg {
+  align-self: flex-end;
+  background: #60a5fa;
+  color: #ffffff;
+  padding: 10px 16px;
+  border-radius: 18px 18px 4px 18px;
+  font-size: 0.88rem;
+  max-width: 82%;
+  box-shadow: 0 4px 12px rgba(96, 165, 250, 0.25);
+  animation: msgPopIn 0.2s ease-out;
+}
+
+.dynamic-bot-msg {
+  align-self: flex-start;
+  background: #f1f5f9;
+  color: #1e293b;
+  padding: 12px 16px;
+  border-radius: 18px 18px 18px 4px;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  max-width: 85%;
+  animation: msgPopIn 0.2s ease-out;
+}
+
+@keyframes msgPopIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.btn-close-dynamic-chat {
+  align-self: center;
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  border-radius: 9999px;
+  padding: 6px 14px;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 8px;
+}
+
+.btn-close-dynamic-chat:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+/* ==========================================================================
+   6. Toast 提示条
+   ========================================================================== */
+.toast-tip {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(16px);
+  background: #111827;
+  color: #ffffff;
+  padding: 10px 22px;
+  border-radius: 9999px;
+  font-size: 0.84rem;
+  font-weight: 600;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  z-index: 100;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.toast-tip.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+
+
+/* ==========================================================================
+   7. 中间功能展区: 4 个水平并列 3D Card Effect 模块 (复刻 Aceternity UI 3d-card-effect)
+   ========================================================================== */
+.cards-3d-section {
+  position: relative;
+  width: 100%;
+  background: #ffffff;
+  padding: 70px 32px 80px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  z-index: 10;
+}
+
+.cards-3d-header {
+  text-align: center;
+  max-width: 680px;
+  margin-bottom: 50px;
+}
+
+.cards-3d-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 16px;
+  border-radius: 9999px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #475569;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  margin-bottom: 16px;
+}
+
+.cards-3d-title {
+  font-size: 2.15rem;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.25;
+  margin: 0 0 12px;
+  letter-spacing: -0.02em;
+}
+
+.cards-3d-subtitle {
+  font-size: 0.96rem;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.55;
+}
+
+/* 4 列水平并列网格布局 */
+.cards-3d-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+  width: 100%;
+  max-width: 1260px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 1100px) {
+  .cards-3d-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .cards-3d-grid {
+    grid-template-columns: 1fr;
+  }
+  .cards-3d-title {
+    font-size: 1.6rem;
+  }
+}
+
+/* Aceternity 3D Card Container (perspective: 1000px) */
+.card-3d-container {
+  perspective: 1000px;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  height: 100%;
+}
+
+/* Aceternity 3D Card Body (preserve-3d) */
+.card-3d-body {
+  position: relative;
+  width: 100%;
+  min-height: 440px;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 20px;
+  padding: 24px 20px;
+  box-sizing: border-box;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  transform-style: preserve-3d;
+  transition: transform 0.18s ease-out, box-shadow 0.22s ease-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: default;
+  will-change: transform;
+}
+
+.card-3d-body:hover {
+  box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+/* Card Items with translateZ */
+.card-3d-item {
+  transform-style: preserve-3d;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.card-badge-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #475569;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  width: fit-content;
+  margin-bottom: 12px;
+}
+
+.tag-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+.tag-dot.green { background: #10b981; box-shadow: 0 0 6px #10b98188; }
+.tag-dot.blue { background: #3b82f6; box-shadow: 0 0 6px #3b82f688; }
+.tag-dot.purple { background: #8b5cf6; box-shadow: 0 0 6px #8b5cf688; }
+.tag-dot.amber { background: #f59e0b; box-shadow: 0 0 6px #f59e0b88; }
+
+.card-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 8px;
+  letter-spacing: -0.01em;
+}
+
+.card-desc {
+  font-size: 0.84rem;
+  color: #64748b;
+  line-height: 1.55;
+  margin: 0 0 18px;
+  flex-grow: 1;
+}
+
+/* Card Image Wrap (Aceternity 3D Card Image Pop-out) */
+.card-image-wrap {
+  width: 100%;
+  height: 180px;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #f8fafc;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  position: relative;
+  transition: box-shadow 0.25s ease;
+}
+
+.card-3d-container:hover .card-image-wrap {
+  box-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.card-module-img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: none;
+}
+
+.card-img-fit-contain {
+  object-fit: contain;
+  background: #ffffff;
+  padding: 6px;
+  box-sizing: border-box;
+}
+
+.card-img-fit-cover {
+  object-fit: cover;
+  object-position: center;
+}
+
+.card-footer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 12px;
+  border-top: 1px solid #f1f5f9;
+}
+
+.card-link-btn {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #0284c7;
+  text-decoration: none;
+  transition: color 0.18s, transform 0.18s;
+  cursor: pointer;
+}
+
+.card-link-btn:hover {
+  color: #0369a1;
+  transform: translateX(2px);
+}
+
+.card-pill {
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: #f1f5f9;
+  color: #64748b;
+}
+
+/* Card Items baseline resting 3D depth */
+.card-badge-tag {
+  transform: translateZ(10px);
+}
+.card-title {
+  transform: translateZ(12px);
+}
+.card-image-wrap {
+  transform: translateZ(18px);
+}
+.card-footer-row {
+  transform: translateZ(8px);
+}
+
+/* =========================================================================
+   Aceternity 3D Cards - 4 方向显著 3D 倾斜角与独立鼠标接管引擎
+   ========================================================================= */
+
+.card-3d-body {
+  position: relative;
+  width: 100%;
+  min-height: 440px;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 20px;
+  padding: 24px 20px;
+  box-sizing: border-box;
+  transform-style: preserve-3d;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: default;
+  will-change: transform, box-shadow;
+}
+
+.card-3d-item {
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* ==========================================================================
+   8. 最后一页: MacBook Scroll 沉浸式滚动展区 (严格 1:1 复刻 Aceternity UI macbook-scroll.tsx)
+   ========================================================================== */
+.macbook-scroll-section {
+  position: relative;
+  width: 100%;
+  min-height: 200vh;
+  background: #ffffff;
+  color: #0f172a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 80px 0 60px;
+  perspective: 800px;
+  box-sizing: border-box;
+  overflow-x: clip;
+}
+
+/* 缩放响应容器: scale-[0.35] sm:scale-50 md:scale-100 */
+.macbook-scroll-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  isolation: isolate;
+  width: 32rem; /* 512px */
+  max-width: 100%;
+  transform-origin: top center;
+  transition: transform 0.2s ease-out;
+}
+
+@media (max-width: 640px) {
+  .macbook-scroll-container {
+    transform: scale(0.65);
+  }
+}
+
+@media (min-width: 641px) and (max-width: 768px) {
+  .macbook-scroll-container {
+    transform: scale(0.85);
+  }
+}
+
+@media (min-width: 769px) {
+  .macbook-scroll-container {
+    transform: scale(1);
+  }
+}
+
+/* Lid 组件 (relative [perspective:800px], z-index 高于键盘底座，确保滑动时在最上方) */
+.macbook-lid {
+  position: relative;
+  perspective: 800px;
+  width: 32rem; /* 512px */
+  height: 12rem; /* 192px (Child 1 natural height) */
+  margin: 0 auto;
+  z-index: 20;
+}
+
+/* 1. Back Lid 背壳: relative h-[12rem] w-[32rem] rounded-2xl bg-[#010101] p-2 */
+.macbook-back-lid {
+  position: relative;
+  height: 12rem; /* 192px */
+  width: 32rem; /* 512px */
+  border-radius: 1rem; /* 16px */
+  background: #010101;
+  padding: 0.5rem; /* 8px */
+  transform: perspective(800px) rotateX(-25deg) translateZ(0px);
+  transform-origin: bottom center;
+  transform-style: preserve-3d;
+  box-sizing: border-box;
+}
+
+.macbook-back-lid-inner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem; /* 8px */
+  background: #010101;
+  box-shadow: 0px 2px 0px 2px #171717 inset;
+}
+
+.aceternity-logo-span {
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.aceternity-logo-svg {
+  width: 0.75rem; /* 12px (h-3 w-3) */
+  height: 0.75rem;
+  color: #ffffff;
+}
+
+/* 2. Motion Screen 动效层: absolute inset-0 h-96 w-[32rem] rounded-2xl bg-[#010101] p-2 */
+.macbook-motion-screen {
+  position: absolute;
+  inset: 0;
+  height: 24rem; /* 384px (h-96) */
+  width: 32rem; /* 512px */
+  border-radius: 1rem; /* 16px */
+  background: #010101;
+  padding: 0.5rem; /* 8px */
+  transform-style: preserve-3d;
+  transform-origin: center top;
+  box-sizing: border-box;
+  will-change: transform;
+  z-index: 30;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+}
+
+.macbook-screen-matte {
+  position: absolute;
+  inset: 0;
+  border-radius: 0.5rem; /* 8px */
+  background: #272729;
+}
+
+.macbook-screen-img {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+  border-radius: 0.5rem; /* 8px */
+  object-fit: cover;
+  object-position: left top;
+  display: block;
+}
+
+/* Base 组件: 属于背景底层 (z-index: 1), 确保当屏幕内容下滑时位于其下方 */
+.macbook-base {
+  position: relative;
+  z-index: 1;
+  height: 22rem; /* 352px */
+  width: 32rem; /* 512px */
+  overflow: hidden;
+  border-radius: 1rem; /* 16px */
+  background: #e5e7eb; /* bg-gray-200 */
+  margin: 0 auto;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+/* Above keyboard bar: relative h-10 w-full, inner: h-4 w-[80%] bg-[#050505] */
+.macbook-above-keyboard-bar {
+  position: relative;
+  height: 2.5rem; /* 40px (h-10) */
+  width: 100%;
+}
+
+.macbook-above-keyboard-bar-inner {
+  position: absolute;
+  inset-inline: 0;
+  margin-inline: auto;
+  height: 1rem; /* 16px (h-4) */
+  width: 80%;
+  background: #050505;
+}
+
+/* Middle row: relative flex */
+.macbook-middle-row {
+  position: relative;
+  display: flex;
+  width: 100%;
+}
+
+.macbook-speaker-wrap {
+  margin-inline: auto;
+  height: 100%;
+  width: 10%;
+  overflow: hidden;
+}
+
+.macbook-speaker-grid {
+  margin-top: 0.5rem; /* 8px (mt-2) */
+  height: 10rem; /* 160px (h-40) */
+  gap: 2px;
+  padding: 0 0.5px;
+  background-image: radial-gradient(circle, #08080a 0.5px, transparent 0.5px);
+  background-size: 3px 3px;
+}
+
+.macbook-keypad-wrap {
+  margin-inline: auto;
+  height: 100%;
+  width: 80%;
+}
+
+.macbook-keypad {
+  margin-inline: 0.25rem; /* 4px (mx-1) */
+  height: 100%;
+  border-radius: 0.375rem; /* 6px (rounded-md) */
+  background: #050505;
+  padding: 0.25rem; /* 4px (p-1) */
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.k-row {
+  display: flex;
+  width: 100%;
+  flex-shrink: 0;
+  gap: 2px;
+  margin-bottom: 2px;
+}
+
+/* KBtn 独立物理按键 */
+.k-btn {
+  transform: translateZ(0);
+  height: 1.5rem; /* 24px (h-6) */
+  background: #0a090d;
+  border-radius: 3.5px;
+  box-shadow: 0px -0.5px 2px 0 #0d0d0f inset, -0.5px 0px 2px 0 #0d0d0f inset, 0 0 0 0.5px rgba(255, 255, 255, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1px 2px;
+  box-sizing: border-box;
+  flex: 1;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.12s;
+}
+
+.k-btn:hover {
+  background: #18181b;
+}
+
+.k-txt {
+  font-size: 5px;
+  color: #ffffff;
+  display: block;
+  text-align: center;
+  line-height: 1.1;
+}
+
+.k-txt.left {
+  align-self: flex-start;
+  padding-left: 2px;
+}
+
+.k-txt.right {
+  align-self: flex-end;
+  padding-right: 2px;
+}
+
+.k-icon {
+  font-size: 6px;
+  color: #ffffff;
+  line-height: 1;
+}
+
+.k-sub {
+  font-size: 4px;
+  color: #a1a1aa;
+}
+
+/* Row 1 TouchID */
+.k-touchid-circle {
+  width: 1rem; /* 16px (h-4 w-4) */
+  height: 1rem;
+  border-radius: 9999px;
+  background: linear-gradient(to bottom, #171717 20%, #000000 50%, #171717 95%);
+  padding: 1px;
+  box-sizing: border-box;
+}
+
+.k-touchid-inner {
+  height: 100%;
+  width: 100%;
+  border-radius: 9999px;
+  background: #000000;
+}
+
+/* Key widths matching official Tailwind classes */
+.k-w-esc, .k-w-delete, .k-w-tab {
+  flex: 1.6;
+}
+.k-w-caps {
+  flex: 1.8;
+}
+.k-w-return {
+  flex: 1.85;
+}
+.k-w-shift {
+  flex: 2.35;
+}
+.k-w-cmd {
+  flex: 1.3;
+}
+.k-w-space {
+  flex: 5.5;
+}
+
+/* Arrow keys container: mt-[2px] flex h-6 w-[4.9rem] flex-col items-center justify-end rounded-[4px] p-[0.5px] */
+.k-arrows-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  flex: 2.2;
+  gap: 1px;
+}
+
+.k-arrow-up {
+  height: 0.75rem; /* 12px (h-3) */
+  width: 1.5rem; /* 24px (w-6) */
+  padding: 0;
+}
+
+.k-arrows-subrow {
+  display: flex;
+  gap: 1px;
+  width: 100%;
+  justify-content: center;
+}
+
+.k-arrow-key {
+  height: 0.75rem; /* 12px (h-3) */
+  flex: 1;
+  padding: 0;
+}
+
+/* Trackpad: mx-auto my-1 h-32 w-[40%] rounded-xl */
+.macbook-trackpad {
+  margin: 0.25rem auto; /* my-1 */
+  height: 8rem; /* 128px (h-32) */
+  width: 40%;
+  border-radius: 0.75rem; /* 12px (rounded-xl) */
+  box-shadow: 0px 0px 1px 1px #00000020 inset;
+  background: rgba(0, 0, 0, 0.02);
+}
+
+/* Bottom notch: absolute inset-x-0 bottom-0 mx-auto h-2 w-20 rounded-tl-3xl rounded-tr-3xl bg-gradient-to-t from-[#272729] to-[#050505] */
+.macbook-bottom-notch {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  margin-inline: auto;
+  height: 0.5rem; /* 8px (h-2) */
+  width: 5rem; /* 80px (w-20) */
+  border-top-left-radius: 1.5rem;
+  border-top-right-radius: 1.5rem;
+  background: linear-gradient(to top, #272729, #050505);
+}
+
+/* Badge: absolute bottom-4 left-4 */
+.macbook-badge {
+  position: absolute;
+  bottom: 1rem; /* 16px (bottom-4) */
+  left: 1rem; /* 16px (left-4) */
+  z-index: 25;
+}
+
+.badge-icon {
+  width: 2.5rem; /* 40px (h-10 w-10) */
+  height: 2.5rem;
+  transform: rotate(-12deg);
+  display: block;
+  transition: transform 0.2s ease;
+}
+
+.badge-icon:hover {
+  transform: rotate(0deg) scale(1.1);
+}
+
+/* ==========================================================================
+   9. 网页最底部: Fluid Gradient Text (复刻 Chanh Dai fluid-gradient-text)
+   ========================================================================== */
+.kilee-fluid-footer {
+  position: relative;
+  width: 100%;
+  background: #ffffff;
+  color: #0f172a;
+  padding: 10px 0 24px;
+  box-sizing: border-box;
+  overflow: hidden;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.fluid-gradient-section {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.fluid-gradient-text-container {
+  position: relative;
+  width: 100%;
+  height: 140px;
+  max-height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  cursor: crosshair;
+}
+
+.fluid-gradient-text-container::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.15;
+}
+
+.fluid-gradient-svg {
+  width: auto;
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+  user-select: none;
+  transform: none;
+}
+
+.fluid-svg-text {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  font-size: 180px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+
+/* ==========================================================================
+   8.0 全屏启动进入页面 (Apple Hello Effect & Slide to Unlock)
+   严格对齐 Chanh Dai 规范:
+   - apple-hello-effect: 居中偏上，极简优雅拟真书写动画
+   - slide-to-unlock: 底部居中，流光文字 + 顺滑滑动解锁手柄
+   ========================================================================== */
+
+/* 启动屏锁定时禁用页面滚动与隐藏滚动条 */
+html.launch-locked,
+body.launch-locked {
+  overflow: hidden !important;
+  height: 100% !important;
+}
+
+.apple-launch-screen {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #ffffff;
+  z-index: 99999;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.65s ease;
+  will-change: opacity, transform, filter;
+}
+
+.apple-launch-screen.unlocked {
+  opacity: 0;
+  transform: scale(1.04);
+  filter: blur(10px);
+  pointer-events: none;
+}
+
+/* 居中偏上: Apple Hello 手写动效，尺寸优雅精巧 (缩小至最佳视觉比例) */
+.launch-hello-container {
+  position: absolute;
+  left: 50%;
+  bottom: calc(50% + 44px);
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.apple-hello-svg {
+  width: clamp(160px, 13vw, 210px);
+  height: auto;
+  color: #09090b;
+  overflow: visible;
+  display: block;
+}
+
+.hello-path-1,
+.hello-path-2 {
+  stroke: currentColor;
+  stroke-width: 14.8883;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+/* 屏幕正中间始终居中: Slide to Unlock 容器 */
+.launch-center-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 严格 1:1 复刻 Chanh Dai: w-54 rounded-xl bg-muted p-1 shadow-inner inset-ring-1 */
+.slide-unlock-box {
+  position: relative;
+  width: 216px; /* Tailwind w-54 = 13.5rem = 216px */
+  height: 48px;
+  border-radius: 12px; /* rounded-xl (经典方形微圆角，绝非全胶囊) */
+  background-color: #f4f4f5; /* bg-muted (zinc-100) */
+  padding: 4px; /* p-1 */
+  box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05), inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  touch-action: none;
+  overflow: hidden;
+}
+
+.slide-unlock-track {
+  position: relative;
+  width: 100%;
+  height: 40px; /* h-10 */
+  display: flex;
+  align-items: center;
+}
+
+.slide-unlock-text {
+  margin-left: 56px; /* handleWidth = 56 */
+  padding-left: 4px; /* pl-1 */
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: #71717a;
+  white-space: nowrap;
+  pointer-events: none;
+  background: linear-gradient(90deg, #a1a1aa 0%, #18181b 45%, #a1a1aa 90%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: slideShimmer 2.8s infinite linear;
+  transition: opacity 0.15s ease;
+  user-select: none;
+}
+
+@keyframes slideShimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+/* 严格 1:1 复刻 Chanh Dai handle:
+   rounded-lg (8px 方形微圆角手柄) h-10 w-56 bg-white text-zinc-400 shadow-sm
+*/
+.slide-unlock-handle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 56px;
+  height: 40px;
+  border-radius: 8px; /* rounded-lg (8px 方形手柄) */
+  background-color: #ffffff;
+  color: #a1a1aa; /* text-zinc-400 */
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  z-index: 10;
+  will-change: transform;
+}
+
+.slide-unlock-handle:active {
+  cursor: grabbing;
+}
+
+.slide-unlock-handle svg {
+  width: 24px;
+  height: 24px;
+  pointer-events: none;
+  transition: transform 0.15s ease;
+}
+
+
+

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>AI Studio — Personal Agent Workspace</title>
+    <style id="expo-reset">
+      html, body {
+        height: 100%;
+        background-color: transparent !important;
+      }
+      body {
+        overflow: hidden;
+        user-select: none;
+      }
+      #root {
+        display: flex;
+        height: 100%;
+        flex: 1;
+        background-color: transparent !important;
+      }
+    </style>
+    <script>
+      // 1. 模拟桌面宿主注入的环境会话
+      window.__ISLAND_HOST__ = {
+        botId: "deeper",
+        name: "Deeper",
+        color: "#3ecf8e",
+        token: "botlan-demo-token",
+        apiUrl: "http://botlan-internal.local"
+      };
+
+      // 2. 模拟 IslandUI 原生 WebView2 通信通道
+      window.chrome = {
+        webview: {
+          postMessage: function(msg) {
+            if (window.parent) {
+              window.parent.postMessage(msg, '*');
+            }
+          },
+          addEventListener: function(type, fn) {
+            window.__islandWebviewListener = fn;
+          }
+        }
+      };
+
+      window.addEventListener('message', function(e) {
+        if (window.__islandWebviewListener && e.data) {
+          window.__islandWebviewListener(e);
+        }
+      });
+
+      // 3. 拦截 API 请求，提供原汁原味的智能体工作区数据
+      const origFetch = window.fetch;
+      window.fetch = async function(url, options) {
+        const urlStr = String(url);
+        const method = (options && options.method) ? options.method.toUpperCase() : 'GET';
+
+        // /api/workspace
+        if (urlStr.includes('/api/workspace')) {
+          return new Response(JSON.stringify({
+            mode: "sample",
+            profile: { name: "User", email: "user@botlan.ai" },
+            mail: [],
+            events: [],
+            files: [],
+            browsers: [
+              {
+                id: "b-1",
+                title: "代码与工作器分析",
+                url: "https://botlan.ai/workspace",
+                status: "idle",
+                updatedAt: new Date().toISOString()
+              }
+            ],
+            actions: [],
+            activity: [
+              {
+                id: "act-1",
+                title: "工作器状态",
+                detail: "浏览器容器未连接 (Browser worker is unavailable)",
+                date: new Date().toISOString(),
+                status: "warning"
+              }
+            ],
+            connections: [
+              { id: "browser", name: "Browser", status: "disconnected", capabilities: ["Sessions"] },
+              { id: "code", name: "Code Workbench", status: "connected", capabilities: ["Editor"] }
+            ],
+            runtime: { provider: "sample", configured: true, openbotConfigured: false, richThreads: false }
+          }), {
+            status: 200,
+            headers: { "Content-Type": "application/json" }
+          });
+        }
+
+        // /api/agent
+        if (urlStr.includes('/api/agent')) {
+          return new Response(JSON.stringify({
+            tasks: [],
+            goals: [
+              {
+                id: "g1",
+                title: "BOTLAN 桌面智能体系统发布",
+                description: "灵动岛与右上角弧形滑轨系统",
+                category: "Core",
+                status: "active",
+                milestones: [
+                  { id: "m1", title: "灵动岛胶囊状态与音频律动条", done: true },
+                  { id: "m2", title: "右上角 Orbit 滑轨与多智能体轮换", done: true }
+                ],
+                createdAt: new Date().toISOString()
+              }
+            ],
+            monitors: [],
+            ideas: [
+              {
+                id: "i1",
+                title: "自动诊断本地容器状态",
+                reason: "检测到浏览器工作器未连接",
+                prompt: "检查容器运行状况",
+                kind: "agent",
+                input: {},
+                status: "new",
+                createdAt: new Date().toISOString()
+              }
+            ],
+            memories: [],
+            artifacts: [],
+            notifications: [
+              {
+                id: "n1",
+                title: "浏览器工作器离线",
+                body: "Browser worker is unavailable. Check that its container is running.",
+                createdAt: new Date().toISOString(),
+                read: false
+              }
+            ],
+            identity: { name: "Deeper", tone: "thoughtful", avatar: "sky" },
+            worker: { running: false }
+          }), {
+            status: 200,
+            headers: { "Content-Type": "application/json" }
+          });
+        }
+
+        // /api/main-thread
+        if (urlStr.includes('/api/main-thread')) {
+          return new Response(JSON.stringify({ threadId: "local", existing: true }), {
+            status: 200,
+            headers: { "Content-Type": "application/json" }
+          });
+        }
+
+        // /api/copilotkit
+        if (urlStr.includes('/api/copilotkit')) {
+          return new Response(JSON.stringify({}), {
+            status: 200,
+            headers: { "Content-Type": "application/json" }
+          });
+        }
+
+        return origFetch.apply(this, arguments);
+      };
+    </script>
+  </head>
+
+  <body>
+    <noscript>
+      You need to enable JavaScript to run this app.
+    </noscript>
+    <div id="root"></div>
+    <script src="./_expo/static/js/web/index-867176e7df8ef6d02deba0c774d03a36.js" defer></script>
+  </body>
+</html>

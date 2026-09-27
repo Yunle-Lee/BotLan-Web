@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BOTLAN</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- =========================================================================
+       0. 全屏启动进入页面 (Apple Hello Effect 居中偏上 + Slide to Unlock 底部居中)
+       ========================================================================= -->
+  <div class="apple-launch-screen" id="appleLaunchScreen" aria-label="Welcome launch screen">
+    <div class="launch-hello-container">
+      <svg class="apple-hello-svg" viewBox="0 0 638 200" aria-label="hello">
+        <path
+          id="appleHelloH1"
+          class="hello-path-1"
+          d="M8.69214 166.553C36.2393 151.239 61.3409 131.548 89.8191 98.0295C109.203 75.1488 119.625 49.0228 120.122 31.0026C120.37 17.6036 113.836 7.43883 101.759 7.43883C88.3598 7.43883 79.9231 17.6036 74.7122 40.9363C69.005 66.5793 64.7866 96.0036 54.1166 190.356"
+        />
+        <path
+          id="appleHelloH2"
+          class="hello-path-2"
+          d="M55.1624 181.135C60.6251 133.114 81.4118 98.0479 107.963 98.0479C123.844 98.0479 133.937 110.703 131.071 128.817C129.457 139.487 127.587 150.405 125.408 163.06C122.869 178.941 130.128 191.348 152.122 191.348C184.197 191.348 219.189 173.523 237.097 145.915C243.198 136.509 245.68 128.073 245.928 119.884C246.176 104.996 237.739 93.8296 222.851 93.8296C203.992 93.8296 189.6 115.17 189.6 142.465C189.6 171.745 205.481 192.341 239.208 192.341C285.066 192.341 335.86 137.292 359.199 75.8585C365.788 58.513 368.26 42.4065 368.26 31.1512C368.26 17.8057 364.042 7.55823 352.131 7.55823C340.469 7.55823 332.777 16.6141 325.829 30.9129C317.688 47.4967 311.667 71.4162 309.203 98.4549C303 166.301 316.896 191.348 349.936 191.348C390 191.348 434.542 135.534 457.286 75.6686C463.803 58.513 466.275 42.4065 466.275 31.1512C466.275 17.8057 462.057 7.55823 450.146 7.55823C438.484 7.55823 430.792 16.6141 423.844 30.9129C415.703 47.4967 409.682 71.4162 407.218 98.4549C401.015 166.301 414.911 191.348 444.416 191.348C473.874 191.348 489.877 165.67 499.471 138.402C508.955 111.447 520.618 94.8221 544.935 94.8221C565.035 94.8221 580.916 109.71 580.916 137.75C580.916 168.768 560.792 192.093 535.362 192.341C512.984 192.589 498.285 174.475 499.774 147.179C501.511 116.907 519.873 94.8221 543.943 94.8221C557.839 94.8221 569.51 100.999 578.682 107.725C603.549 125.866 622.709 114.656 630.047 96.7186"
+        />
+      </svg>
+    </div>
+
+    <!-- 屏幕正中间始终居中: Slide to Unlock 方形微圆角组件 (1:1 严格对齐 Chanh Dai) -->
+    <div class="launch-center-container">
+      <div class="slide-unlock-box" id="slideUnlockBox">
+        <div class="slide-unlock-track" id="slideUnlockTrack">
+          <span class="slide-unlock-text" id="slideUnlockText">Slide to unlock</span>
+          <div class="slide-unlock-handle" id="slideUnlockHandle" role="slider" aria-label="Slide to unlock" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M24 12 12.75 3v4.696H0v8.608h12.75V21z" />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 主封面舞台：仅包含大标题 BOTLAN 与下方可交互的 3D Mockup 视窗 -->
+  <main class="page-container" id="pageContainer">
+
+    <!-- 0. 封面左上角: Mobius Loop Icon (严格复刻 Chanh Dai mobius-loop-icon 莫比乌斯环无穷动效) -->
+    <div class="cover-top-left" id="coverTopLeft">
+      <a href="#" class="mobius-loop-wrap" id="mobiusLoopWrap" aria-label="Mobius Loop Icon">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="mobius-loop-svg"
+          aria-hidden="true"
+        >
+          <path
+            id="mobiusLoopPath"
+            class="mobius-loop-path"
+            d="M12 4C16.42 4 20 7.58 20 12C20 16.42 16.42 20 12 20C7.58 20 4 16.42 4 12C4 7.58 7.58 4 12 4Z"
+          />
+        </svg>
+      </a>
+    </div>
+
+    <!-- 0.1 封面左侧 LineNav 导航栏 (严格 1:1 复刻 Chanh Dai line-nav 规范，展示 Island Agent 核心优势) -->
+    <aside class="cover-sidebar-left" id="coverSidebarLeft" aria-label="Island Agent Features Navigation">
+      <nav class="line-nav" id="lineNav" style="--line-nav-width: 24px;">
+        <!-- Feature 1: Dynamic Island System -->
+        <a class="line-nav-item active" href="#dynamic-island">
+          <span class="line-nav-bar"></span>
+          <span class="line-nav-title">Dynamic Island System</span>
+        </a>
+        <span class="line-nav-tick"></span>
+        <span class="line-nav-tick"></span>
+
+        <!-- Feature 2: Persistent Task Runner -->
+        <a class="line-nav-item" href="#persistent-runner">
+          <span class="line-nav-bar"></span>
+          <span class="line-nav-title">Persistent Task Runner</span>
+        </a>
+        <span class="line-nav-tick"></span>
+        <span class="line-nav-tick"></span>
+
+        <!-- Feature 3: Isolated Linux Sandbox -->
+        <a class="line-nav-item" href="#isolated-sandbox">
+          <span class="line-nav-bar"></span>
+          <span class="line-nav-title">Isolated Linux Sandbox</span>
+        </a>
+        <span class="line-nav-tick"></span>
+        <span class="line-nav-tick"></span>
+
+        <!-- Feature 4: Multi-Agent Swarm -->
+        <a class="line-nav-item" href="#multi-agent">
+          <span class="line-nav-bar"></span>
+          <span class="line-nav-title">Multi-Agent Swarm</span>
+        </a>
+        <span class="line-nav-tick"></span>
+        <span class="line-nav-tick"></span>
+
+        <!-- Feature 5: Native Desktop Widgets -->
+        <a class="line-nav-item" href="#desktop-widgets">
+          <span class="line-nav-bar"></span>
+          <span class="line-nav-title">Native Desktop Widgets</span>
+        </a>
+        <span class="line-nav-tick"></span>
+        <span class="line-nav-tick"></span>
+
+        <!-- Feature 6: Apple Kinetic Philosophy -->
+        <a class="line-nav-item" href="#apple-design">
+          <span class="line-nav-bar"></span>
+          <span class="line-nav-title">Apple Kinetic Philosophy</span>
+        </a>
+      </nav>
+    </aside>
+
+    <!-- 1. 顶部大标题：BOTLAN（文字下半部分渐变淡出） -->
+    <div class="title-wrap">
+      <img src="网页的标题.png" alt="BOTLAN" class="botlan-title-img" draggable="false" />
+    </div>
+
+    <!-- 2. 鼠标互动 3D Mockup 视差与热区舞台 -->
+    <div class="mockup-perspective-wrapper" id="mockupWrapper">
+      <div class="mockup-card-3d" id="mockupCard">
+
+        <!-- 动态光泽反射层 (跟随鼠标光标移动的拟真玻璃光影) -->
+        <div class="mockup-glare" id="mockupGlare"></div>
+
+        <!-- 真实软件抠图底层 (1163x920 原始软件质感) -->
+        <img src="mockup.png" alt="BOTLAN 智能体桌面应用" class="mockup-base-img" id="mockupImg" draggable="false" />
+
+        <!-- 交互热区覆盖层 (Hotspot Interactive Overlays) -->
+
+        <!-- A. 右上角 Orbit 环形滑轨交互区 (滚轮、点击、拖拽) -->
+        <div class="hotspot-orbit" id="orbitSystem" title="在此使用鼠标滚轮滚动或点击体验滑轨切换">
+          <div class="orbit-hit-tab tab-deeper-hit active" id="tabDeeper" title="切换至 Deeper 智能体">
+            <span class="orbit-hit-ripple"></span>
+          </div>
+          <div class="orbit-hit-tab tab-agent-hit" id="tabAgent" title="切换至 Agent 智能体">
+            <span class="orbit-hit-ripple"></span>
+          </div>
+        </div>
+
+        <!-- B. 右侧动作栏各按键点击跳转热区 -->
+        <aside class="hotspot-right-rail">
+          <button class="hotspot-tool-btn active" data-action="chat" id="toolChat" title="对话视图 (当前)"></button>
+          <button class="hotspot-tool-btn" data-action="code" id="toolCode" title="代码工作区 (点击跳转)"></button>
+          <button class="hotspot-tool-btn" data-action="activity" id="toolActivity" title="活动看板 (点击跳转)"></button>
+          <button class="hotspot-tool-btn" data-action="ideas" id="toolIdeas" title="灵感建议 (点击跳转)"></button>
+          <button class="hotspot-tool-btn" data-action="goals" id="toolGoals" title="目标任务清单 (点击跳转)"></button>
+          <button class="hotspot-tool-btn" data-action="apps" id="toolApps" title="应用与连接 (点击跳转)"></button>
+        </aside>
+
+        <!-- C. 左侧导航栏交互热区 -->
+        <aside class="hotspot-left-rail">
+          <button class="hotspot-nav-btn btn-menu-hit" id="btnNavMenu" title="智能体工作区总览"></button>
+          <div class="hotspot-avatar-hit" id="mascotAvatar" title="机体互动 (点击眨眼交互)"></div>
+          <button class="hotspot-nav-btn btn-lang-hit" id="btnNavLang" title="切换语言 (EN / 中文)">
+            <span class="hit-lang-badge" id="langBadge">EN</span>
+          </button>
+          <button class="hotspot-nav-btn btn-bell-hit" id="btnNavBell" title="查看通知中心"></button>
+        </aside>
+
+        <!-- D. 顶栏微幅拖动手柄与重置按键 -->
+        <div class="hotspot-drag-handle" id="dragPill" title="按住可微幅物理拖动体验"></div>
+        <button class="hotspot-close-btn" id="btnClose" title="重置视角"></button>
+
+        <!-- E. 底部输入栏真实打字交互层 -->
+        <div class="hotspot-input-dock">
+          <button class="dock-btn-plus" id="btnInputPlus" title="添加附件/关联仓库">+</button>
+          <input type="text" class="dock-input-field" id="textInput" placeholder="输入消息或指令（Enter 发送体验）…" autocomplete="off" />
+          <button class="dock-btn-send" id="btnInputSend" title="发送">↑</button>
+        </div>
+
+        <!-- F. 子视图展示覆盖层 (点击右侧按键时无缝弹出体验) -->
+        <div class="subview-panel-overlay" id="jumpSubview" style="display: none;">
+          <div class="subview-topbar">
+            <div class="subview-title-group">
+              <span class="subview-badge" id="subviewBadge">工具</span>
+              <h4 class="subview-title" id="subviewTitle">代码工作区</h4>
+            </div>
+            <button class="subview-back-btn" id="btnSubviewBack">返回对话 ✕</button>
+          </div>
+          <div class="subview-content" id="subviewContent"></div>
+        </div>
+
+        <!-- G. 模拟动态对话插入浮层 (打字发送后在视窗内弹出的真实感响应) -->
+        <div class="mockup-dynamic-chat" id="dynamicChatLayer" style="display: none;">
+          <div class="dynamic-chat-scroll" id="dynamicChatScroll"></div>
+          <button class="btn-close-dynamic-chat" id="btnCloseDynamicChat">✕ 还原默认对话</button>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ==========================================================================
+       2. 中间功能展区: 4 个水平并列 3D Card Effect 模块 (复刻 Aceternity UI 3d-card-effect)
+       ========================================================================== -->
+  <section class="cards-3d-section" id="cards3dSection">
+    <div class="cards-3d-grid">
+      <!-- Card 1: 模块1 灵动岛交互体系 -->
+      <div class="card-3d-container">
+        <div class="card-3d-body card-ambient-1">
+          <div class="card-3d-item card-badge-tag" data-tz="30">
+            <span class="tag-dot green"></span>
+            <span>Island System</span>
+          </div>
+          <h3 class="card-3d-item card-title" data-tz="50">灵动岛交互体系</h3>
+          <p class="card-3d-item card-desc" data-tz="40">
+            支持 Long Island、Small Island、Circle Island 多形态常驻微交互，全屏网页边框自然延伸与状态感知。
+          </p>
+          <div class="card-3d-item card-image-wrap" data-tz="80">
+            <img src="模块1.png" alt="模块1：灵动岛交互体系" class="card-module-img card-img-fit-contain" />
+          </div>
+          <div class="card-3d-item card-footer-row" data-tz="35">
+            <a href="javascript:void(0)" class="card-link-btn" onclick="showToast('🏝️ 灵动岛交互体系已就绪')">体验灵动岛 →</a>
+            <span class="card-pill">Interactive</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: 模块2 点阵与多智能体 -->
+      <div class="card-3d-container">
+        <div class="card-3d-body card-ambient-2">
+          <div class="card-3d-item card-badge-tag" data-tz="30">
+            <span class="tag-dot blue"></span>
+            <span>Matrix &amp; Multi-Bots</span>
+          </div>
+          <h3 class="card-3d-item card-title" data-tz="50">点阵矩阵与多智能体</h3>
+          <p class="card-3d-item card-desc" data-tz="40">
+            标志性点阵字母构型与 @kilee! 核心标识，多 Bot 状态胶囊实时呼应，数据与任务瞬时流转。
+          </p>
+          <div class="card-3d-item card-image-wrap" data-tz="80">
+            <img src="模块2.png" alt="模块2：点阵矩阵与多智能体" class="card-module-img card-img-fit-contain" />
+          </div>
+          <div class="card-3d-item card-footer-row" data-tz="35">
+            <a href="javascript:void(0)" class="card-link-btn" onclick="showToast('⚡ 多智能体点阵网络已连接')">查看 Bot 矩阵 →</a>
+            <span class="card-pill">Collaborative</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3: 模块3 桌面原生悬浮组件 -->
+      <div class="card-3d-container">
+        <div class="card-3d-body card-ambient-3">
+          <div class="card-3d-item card-badge-tag" data-tz="30">
+            <span class="tag-dot purple"></span>
+            <span>Native Desktop</span>
+          </div>
+          <h3 class="card-3d-item card-title" data-tz="50">桌面原生悬浮小组件</h3>
+          <p class="card-3d-item card-desc" data-tz="40">
+            深度融入 Windows 桌面生态，深浅双色状态胶囊与网络电量大卡片随心贴靠悬浮，原生轻量无感。
+          </p>
+          <div class="card-3d-item card-image-wrap" data-tz="80">
+            <img src="模块3.png" alt="模块3：桌面原生悬浮小组件" class="card-module-img card-img-fit-cover" />
+          </div>
+          <div class="card-3d-item card-footer-row" data-tz="35">
+            <a href="javascript:void(0)" class="card-link-btn" onclick="showToast('🖥️ 桌面原生悬浮组件已加载')">探索桌面挂件 →</a>
+            <span class="card-pill">Seamless</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4: 模块4 采用Apple设计哲学 -->
+      <div class="card-3d-container">
+        <div class="card-3d-body card-ambient-4">
+          <div class="card-3d-item card-badge-tag" data-tz="30">
+            <span class="tag-dot amber"></span>
+            <span>Design Philosophy</span>
+          </div>
+          <h3 class="card-3d-item card-title" data-tz="50">采用Apple设计哲学</h3>
+          <p class="card-3d-item card-desc" data-tz="40">
+            秉持人文与科技交汇的设计准则，追求软硬件一体化的极致极简美学，让每一次人机交互自然优雅。
+          </p>
+          <div class="card-3d-item card-image-wrap" data-tz="80">
+            <img src="模块4.png" alt="模块4：采用Apple设计哲学" class="card-module-img card-img-fit-cover" />
+          </div>
+          <div class="card-3d-item card-footer-row" data-tz="35">
+            <a href="javascript:void(0)" class="card-link-btn" onclick="showToast('🍎 采用 Apple 设计哲学理念')">探索哲学 →</a>
+            <span class="card-pill">Apple Design</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       3. 最后一页: MacBook Scroll 沉浸式滚动展区 (严格 1:1 复刻 Aceternity UI macbook-scroll.tsx)
+       ========================================================================== -->
+  <section class="macbook-scroll-section" id="macbookSection">
+    <div class="macbook-scroll-container" id="macbookScrollContainer">
+
+      <!-- Lid 组件 -->
+      <div class="macbook-lid">
+        <!-- 1. Back Lid 背壳 (固定 -25deg, 包含 Aceternity Logo) -->
+        <div class="macbook-back-lid">
+          <div class="macbook-back-lid-inner">
+            <span class="aceternity-logo-span">
+              <svg width="66" height="65" viewBox="0 0 66 65" fill="none" xmlns="http://www.w3.org/2000/svg" class="aceternity-logo-svg">
+                <path d="M8 8.05571C8 8.05571 54.9009 18.1782 57.8687 30.062C60.8365 41.9458 9.05432 57.4696 9.05432 57.4696" stroke="currentColor" stroke-width="15" stroke-miterlimit="3.86874" stroke-linecap="round"/>
+              </svg>
+            </span>
+          </div>
+        </div>
+
+        <!-- 2. Motion Screen 动效层 (完全依据官方 scaleX, scaleY, rotate, translate) -->
+        <div class="macbook-motion-screen" id="macbookMotionScreen">
+          <div class="macbook-screen-matte"></div>
+          <img src="MacBook.png" alt="BOTLAN on MacBook" class="macbook-screen-img" draggable="false" />
+        </div>
+      </div>
+
+      <!-- Base 组件: 键盘底座 (h-[22rem] w-[32rem] bg-gray-200) -->
+      <div class="macbook-base">
+        <!-- Above keyboard bar -->
+        <div class="macbook-above-keyboard-bar">
+          <div class="macbook-above-keyboard-bar-inner"></div>
+        </div>
+
+        <!-- Speakers and Keypad row -->
+        <div class="macbook-middle-row">
+          <div class="macbook-speaker-wrap">
+            <div class="macbook-speaker-grid"></div>
+          </div>
+          <div class="macbook-keypad-wrap">
+            <div class="macbook-keypad">
+              <!-- Row 1: esc, F1-F12, TouchID -->
+              <div class="k-row">
+                <div class="k-btn k-w-esc"><span class="k-txt left">esc</span></div>
+                <div class="k-btn"><span class="k-icon">☼</span><span class="k-txt">F1</span></div>
+                <div class="k-btn"><span class="k-icon">☀</span><span class="k-txt">F2</span></div>
+                <div class="k-btn"><span class="k-icon">▤</span><span class="k-txt">F3</span></div>
+                <div class="k-btn"><span class="k-icon">🔍</span><span class="k-txt">F4</span></div>
+                <div class="k-btn"><span class="k-icon">🎤</span><span class="k-txt">F5</span></div>
+                <div class="k-btn"><span class="k-icon">🌙</span><span class="k-txt">F6</span></div>
+                <div class="k-btn"><span class="k-icon">◀◀</span><span class="k-txt">F7</span></div>
+                <div class="k-btn"><span class="k-icon">▶❚❚</span><span class="k-txt">F8</span></div>
+                <div class="k-btn"><span class="k-icon">▶▶</span><span class="k-txt">F9</span></div>
+                <div class="k-btn"><span class="k-icon">🔇</span><span class="k-txt">F10</span></div>
+                <div class="k-btn"><span class="k-icon">🔉</span><span class="k-txt">F11</span></div>
+                <div class="k-btn"><span class="k-icon">🔊</span><span class="k-txt">F12</span></div>
+                <div class="k-btn"><div class="k-touchid-circle"><div class="k-touchid-inner"></div></div></div>
+              </div>
+
+              <!-- Row 2: ~ 1 2 3 4 5 6 7 8 9 0 - = delete -->
+              <div class="k-row">
+                <div class="k-btn"><span class="k-txt">~</span><span class="k-txt">`</span></div>
+                <div class="k-btn"><span class="k-txt">!</span><span class="k-txt">1</span></div>
+                <div class="k-btn"><span class="k-txt">@</span><span class="k-txt">2</span></div>
+                <div class="k-btn"><span class="k-txt">#</span><span class="k-txt">3</span></div>
+                <div class="k-btn"><span class="k-txt">$</span><span class="k-txt">4</span></div>
+                <div class="k-btn"><span class="k-txt">%</span><span class="k-txt">5</span></div>
+                <div class="k-btn"><span class="k-txt">^</span><span class="k-txt">6</span></div>
+                <div class="k-btn"><span class="k-txt">&amp;</span><span class="k-txt">7</span></div>
+                <div class="k-btn"><span class="k-txt">*</span><span class="k-txt">8</span></div>
+                <div class="k-btn"><span class="k-txt">(</span><span class="k-txt">9</span></div>
+                <div class="k-btn"><span class="k-txt">)</span><span class="k-txt">0</span></div>
+                <div class="k-btn"><span class="k-txt">—</span><span class="k-txt">-</span></div>
+                <div class="k-btn"><span class="k-txt">+</span><span class="k-txt">=</span></div>
+                <div class="k-btn k-w-delete"><span class="k-txt right">delete</span></div>
+              </div>
+
+              <!-- Row 3: tab Q W E R T Y U I O P [ ] \ -->
+              <div class="k-row">
+                <div class="k-btn k-w-tab"><span class="k-txt left">tab</span></div>
+                <div class="k-btn"><span class="k-txt">Q</span></div>
+                <div class="k-btn"><span class="k-txt">W</span></div>
+                <div class="k-btn"><span class="k-txt">E</span></div>
+                <div class="k-btn"><span class="k-txt">R</span></div>
+                <div class="k-btn"><span class="k-txt">T</span></div>
+                <div class="k-btn"><span class="k-txt">Y</span></div>
+                <div class="k-btn"><span class="k-txt">U</span></div>
+                <div class="k-btn"><span class="k-txt">I</span></div>
+                <div class="k-btn"><span class="k-txt">O</span></div>
+                <div class="k-btn"><span class="k-txt">P</span></div>
+                <div class="k-btn"><span class="k-txt">{</span><span class="k-txt">[</span></div>
+                <div class="k-btn"><span class="k-txt">}</span><span class="k-txt">]</span></div>
+                <div class="k-btn"><span class="k-txt">|</span><span class="k-txt">\</span></div>
+              </div>
+
+              <!-- Row 4: caps lock A S D F G H J K L : ' return -->
+              <div class="k-row">
+                <div class="k-btn k-w-caps"><span class="k-txt left">caps lock</span></div>
+                <div class="k-btn"><span class="k-txt">A</span></div>
+                <div class="k-btn"><span class="k-txt">S</span></div>
+                <div class="k-btn"><span class="k-txt">D</span></div>
+                <div class="k-btn"><span class="k-txt">F</span></div>
+                <div class="k-btn"><span class="k-txt">G</span></div>
+                <div class="k-btn"><span class="k-txt">H</span></div>
+                <div class="k-btn"><span class="k-txt">J</span></div>
+                <div class="k-btn"><span class="k-txt">K</span></div>
+                <div class="k-btn"><span class="k-txt">L</span></div>
+                <div class="k-btn"><span class="k-txt">:</span><span class="k-txt">;</span></div>
+                <div class="k-btn"><span class="k-txt">"</span><span class="k-txt">'</span></div>
+                <div class="k-btn k-w-return"><span class="k-txt right">return</span></div>
+              </div>
+
+              <!-- Row 5: shift Z X C V B N M < > ? shift -->
+              <div class="k-row">
+                <div class="k-btn k-w-shift"><span class="k-txt left">shift</span></div>
+                <div class="k-btn"><span class="k-txt">Z</span></div>
+                <div class="k-btn"><span class="k-txt">X</span></div>
+                <div class="k-btn"><span class="k-txt">C</span></div>
+                <div class="k-btn"><span class="k-txt">V</span></div>
+                <div class="k-btn"><span class="k-txt">B</span></div>
+                <div class="k-btn"><span class="k-txt">N</span></div>
+                <div class="k-btn"><span class="k-txt">M</span></div>
+                <div class="k-btn"><span class="k-txt">&lt;</span><span class="k-txt">,</span></div>
+                <div class="k-btn"><span class="k-txt">&gt;</span><span class="k-txt">.</span></div>
+                <div class="k-btn"><span class="k-txt">?</span><span class="k-txt">/</span></div>
+                <div class="k-btn k-w-shift"><span class="k-txt right">shift</span></div>
+              </div>
+
+              <!-- Row 6: fn, control, option, command, space, command, option, arrows -->
+              <div class="k-row">
+                <div class="k-btn"><span class="k-sub">fn</span><span class="k-sub">🌐</span></div>
+                <div class="k-btn"><span class="k-sub">⌃</span><span class="k-sub">control</span></div>
+                <div class="k-btn"><span class="k-sub">⌥</span><span class="k-sub">option</span></div>
+                <div class="k-btn k-w-cmd"><span class="k-sub">⌘</span><span class="k-sub">command</span></div>
+                <div class="k-btn k-w-space"></div>
+                <div class="k-btn k-w-cmd"><span class="k-sub">⌘</span><span class="k-sub">command</span></div>
+                <div class="k-btn"><span class="k-sub">⌥</span><span class="k-sub">option</span></div>
+                <div class="k-arrows-container">
+                  <div class="k-btn k-arrow-up"><span class="k-txt">▲</span></div>
+                  <div class="k-arrows-subrow">
+                    <div class="k-btn k-arrow-key"><span class="k-txt">◀</span></div>
+                    <div class="k-btn k-arrow-key"><span class="k-txt">▼</span></div>
+                    <div class="k-btn k-arrow-key"><span class="k-txt">▶</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="macbook-speaker-wrap">
+            <div class="macbook-speaker-grid"></div>
+          </div>
+        </div>
+
+        <!-- Trackpad -->
+        <div class="macbook-trackpad"></div>
+
+        <!-- Bottom notch -->
+        <div class="macbook-bottom-notch"></div>
+
+        <!-- Peerlist Badge Sticker (from user's code snippet) -->
+        <div class="macbook-badge">
+          <a href="https://peerlist.io/manuarora" target="_blank" rel="noopener">
+            <svg width="24" height="24" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" class="badge-icon">
+              <path d="M56 28C56 43.464 43.464 56 28 56C12.536 56 0 43.464 0 28C0 12.536 12.536 0 28 0C43.464 0 56 12.536 56 28Z" fill="#00AA45" />
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M28 54C42.3594 54 54 42.3594 54 28C54 13.6406 42.3594 2 28 2C13.6406 2 2 13.6406 2 28C2 42.3594 13.6406 54 28 54ZM28 56C43.464 56 56 43.464 56 28C56 12.536 43.464 0 28 0C12.536 0 0 12.536 0 28C0 43.464 12.536 56 28 56Z" fill="#00AA45" />
+              <path d="M34.7778 28.5C34.7778 32.0899 31.8677 35 28.2778 35C24.6879 35 21.7778 32.0899 21.7778 28.5C21.7778 24.9101 24.6879 22 28.2778 22C31.8677 22 34.7778 24.9101 34.7778 28.5Z" fill="white" />
+            </svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       4. 最后一页最底部: Fluid Gradient Text 交互流体渐变文字 (复刻 Chanh Dai fluid-gradient-text)
+       ========================================================================== -->
+  <footer class="kilee-fluid-footer" id="kileeFluidFooter">
+    <div class="fluid-gradient-section">
+      <div class="fluid-gradient-text-container" id="fluidGradientContainer">
+        <svg
+          class="fluid-gradient-svg"
+          viewBox="0 0 1400 220"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <text
+            x="50%"
+            y="54%"
+            text-anchor="middle"
+            dominant-baseline="central"
+            stroke="currentColor"
+            stroke-opacity="0.12"
+            stroke-width="2.5"
+            fill="url(#fluid_gradient_text_linear)"
+            class="fluid-svg-text"
+          >
+            KiLEE BOT
+          </text>
+          <defs>
+            <linearGradient
+              id="fluid_gradient_text_linear"
+              x1="700"
+              y1="0"
+              x2="700"
+              y2="220"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop offset="0.3" stop-color="currentColor" stop-opacity="0.12" />
+              <stop offset="0.75" stop-color="currentColor" stop-opacity="0.65" />
+              <stop offset="1" stop-color="currentColor" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 体验反馈 Toast -->
+  <div class="toast-tip" id="toastTip">
+    <span id="toastTipText">欢迎体验 BOTLAN 桌面交互</span>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
